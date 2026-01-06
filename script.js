@@ -1,24 +1,32 @@
-// Mostrar frame al click en el pack
 const buyPack = document.getElementById('buyPack');
 const buyFrame = document.getElementById('buyFrame');
 const keyMsg = document.getElementById('keyMsg');
 
+// Abrir frame de compra
 buyPack.addEventListener('click', () => {
   buyFrame.style.display = 'block';
 });
 
 // Botón Robux
 document.getElementById('robuxBtn').addEventListener('click', () => {
-  // Redirige a la página de Roblox
-  window.open('https://www.roblox.com/es/catalog/99017391115458/BX-PREMIUM', '_blank');
-
-  // Después de comprar, muestra el link de la daily key
-  keyMsg.style.display = 'block';
+  alert("CONTACT ALEX BY DISCORD TO BUY THIS WITH ROBUX");
 });
 
 // Botón PayPal
-document.getElementById('paypalBtn').addEventListener('click', () => {
-  alert('CONTACT AT ALEX FOR BUYING, APPEAL TO DISCORD');
+document.getElementById('paypalBtn').addEventListener('click', async () => {
+  try {
+    const res = await fetch("/api/paypal");
+    const data = await res.json();
+
+    if(data.success){
+      keyMsg.style.display = 'block'; // Muestra la key solo si pago correcto
+    } else {
+      alert("Payment not received or amount incorrect!");
+    }
+  } catch(err){
+    console.error(err);
+    alert("Error verifying payment");
+  }
 });
 
 // Cerrar frame
