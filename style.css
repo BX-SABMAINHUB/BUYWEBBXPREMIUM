@@ -1,64 +1,117 @@
+* {
+  box-sizing: border-box;
+  font-family: 'Courier New', monospace;
+}
+
 body {
-  font-family: 'Arial', sans-serif;
-  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-  color: #00ffcc;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
   margin: 0;
+  background: black;
+  color: #00ff99;
+  overflow: hidden;
+}
+
+.bg {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at top, #003b2f, black);
+  animation: pulse 6s infinite;
+  z-index: -1;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
 }
 
 .container {
   text-align: center;
+  padding-top: 80px;
 }
 
-h1 {
+.title {
   font-size: 3em;
-  text-shadow: 0 0 10px #00ffcc;
+  text-shadow: 0 0 15px #00ff99;
 }
 
-.pack {
-  margin-top: 20px;
-  padding: 30px;
-  border: 2px solid #00ffcc;
-  border-radius: 15px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  background: rgba(0,255,204,0.1);
+.subtitle {
+  opacity: 0.8;
+  margin-bottom: 40px;
 }
 
-.pack:hover {
-  box-shadow: 0 0 20px #00ffcc, 0 0 40px #00ffcc inset;
-  transform: scale(1.05);
-}
-
-.buy-frame, .key-msg {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: #1a1a2e;
-  border: 2px solid #00ffcc;
-  border-radius: 15px;
+.script-box {
+  background: rgba(0,255,153,0.08);
+  border: 1px solid #00ff99;
+  width: 80%;
+  margin: auto;
   padding: 20px;
-  display: none;
-  text-align: center;
-  width: 300px;
+  text-align: left;
+  box-shadow: 0 0 20px #00ff9944;
 }
 
-button {
-  margin: 10px;
-  padding: 10px 20px;
-  background: #00ffcc;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  color: #000;
+.label {
   font-weight: bold;
-  transition: all 0.2s ease;
 }
 
-button:hover {
-  background: #00ffaa;
+pre {
+  white-space: pre-wrap;
+  color: #00ffaa;
+}
+
+.buy-btn {
+  margin-top: 40px;
+  padding: 15px 40px;
+  font-size: 1.2em;
+  background: #00ff99;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0 20px #00ff99;
+  transition: 0.3s;
+}
+
+.buy-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 35px #00ff99;
+}
+
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  justify-content: center;
+  align-items: center;
+}
+
+.frame {
+  background: #050505;
+  border: 1px solid #00ff99;
+  padding: 30px;
+  width: 300px;
+  text-align: center;
+  box-shadow: 0 0 30px #00ff99;
+}
+
+.pay-btn {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 12px;
+  background: transparent;
+  border: 1px solid #00ff99;
+  color: #00ff99;
+  cursor: pointer;
+}
+
+.pay-btn:hover {
+  background: #00ff99;
+  color: black;
+}
+
+.close-btn {
+  margin-top: 15px;
+  background: none;
+  border: none;
+  color: #ff5555;
+  cursor: pointer;
 }
