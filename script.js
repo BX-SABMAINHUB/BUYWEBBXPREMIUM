@@ -1,40 +1,21 @@
-const buyPack = document.getElementById('buyPack');
-const buyFrame = document.getElementById('buyFrame');
-const keyMsg = document.getElementById('keyMsg');
+const buyBtn = document.getElementById("buyBtn");
+const overlay = document.getElementById("overlay");
+const closeBtn = document.getElementById("closeBtn");
 
-// Abrir frame de compra
-buyPack.addEventListener('click', () => {
-  buyFrame.style.display = 'block';
-});
+const discordLink = "https://discord.com/channels/1450199337207595152/1458218092663410698";
 
-// Botón Robux
-document.getElementById('robuxBtn').addEventListener('click', () => {
-  alert("CONTACT ALEX BY DISCORD TO BUY THIS WITH ROBUX");
-});
+buyBtn.onclick = () => {
+  overlay.style.display = "flex";
+};
 
-// Botón PayPal
-document.getElementById('paypalBtn').addEventListener('click', async () => {
-  try {
-    const res = await fetch("/api/paypal");
-    const data = await res.json();
+closeBtn.onclick = () => {
+  overlay.style.display = "none";
+};
 
-    if(data.success){
-      keyMsg.style.display = 'block'; // Muestra la key solo si pago correcto
-    } else {
-      alert("Payment not received or amount incorrect!");
-    }
-  } catch(err){
-    console.error(err);
-    alert("Error verifying payment");
-  }
-});
+document.querySelector(".paypal").onclick = () => {
+  window.open(discordLink, "_blank");
+};
 
-// Cerrar frame
-document.getElementById('closeFrame').addEventListener('click', () => {
-  buyFrame.style.display = 'none';
-});
-
-// Cerrar mensaje key
-document.getElementById('closeKeyMsg').addEventListener('click', () => {
-  keyMsg.style.display = 'none';
-});
+document.querySelector(".robux").onclick = () => {
+  window.open(discordLink, "_blank");
+};
