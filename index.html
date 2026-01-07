@@ -4,24 +4,34 @@
 <meta charset="UTF-8">
 <title>BX-PREMIUM</title>
 <link rel="stylesheet" href="style.css">
-<!-- PayPal SDK con tu Client ID -->
-<script src="https://www.paypal.com/sdk/js?client-id=Afca3gBWdUQMaY4LTkgEZGmWfiDeJdoSdbdsJmKi8YyIYCLPdTarEkWKrK8ssbSTvnSpWmciEP8-yKiS&currency=EUR"></script>
+<!-- PayPal SDK con client-id -->
+<script src="https://www.paypal.com/sdk/js?client-id=Afca3gBWdUQMaY4LTkgEZGmWfiDeJdoSdbdsJmKi8YyIYCLPdTarEkWKrK8ssbSTvnSpWmciEP8-yKiS"></script>
 </head>
 <body>
-  <div class="container">
-    <h1 class="title">BX-PREMIUM SCRIPT</h1>
-    <p class="desc">Get your daily key after paying 5€</p>
+<div class="container">
+  <h1 class="title">BX-PREMIUM SCRIPT</h1>
+  <p class="desc">Get your daily key after paying</p>
 
-    <!-- Botón de PayPal -->
-    <div id="paypal-button-container"></div>
+  <!-- Dropdown de monedas -->
+  <label for="currency">Choose currency:</label>
+  <select id="currency">
+    <option value="EUR" selected>€ Euro</option>
+    <option value="USD">$ Dollar</option>
+    <option value="GBP">£ Pound</option>
+    <option value="MXN">MXN Peso</option>
+    <option value="ARS">ARS Peso</option>
+  </select>
 
-    <!-- Link de la key diaria -->
-    <div id="key-link" style="display:none; margin-top:20px;">
-      <p>✅ Payment successful! Access your daily key here:</p>
-      <a href="https://dailykey.vercel.app/" target="_blank">Daily Key</a>
-    </div>
+  <!-- Botón PayPal -->
+  <div id="paypal-button-container"></div>
+
+  <!-- Link de la key diaria -->
+  <div id="key-link" style="display:none; margin-top:20px;">
+    <p>✅ Payment successful! Access your daily key here:</p>
+    <a href="https://dailykey.vercel.app/" target="_blank">Daily Key</a>
   </div>
+</div>
 
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
