@@ -1,41 +1,24 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>BX Script</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>BX-Premium</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://www.paypal.com/sdk/js?client-id=YOUR_SANDBOX_CLIENT_ID&currency=EUR"></script>
 </head>
 <body>
-
-  <!-- Fondo animado -->
-  <div class="bg"></div>
-
   <div class="container">
-    <h1 class="title">BX SCRIPT HUB</h1>
-    <p class="subtitle">Advanced • Powerful • Undetected</p>
+    <h1 class="title">BX-PREMIUM SCRIPT</h1>
+    <p class="desc">Get your daily key after paying 5€</p>
 
-    <!-- Script -->
-    <div class="script-box">
-      <span class="label">SCRIPT:</span>
-      <pre>
-loadstring(game:HttpGet("https://raw.githubusercontent.com/BX-SABMAINHUB/Bx-sabscript-/refs/heads/main/main.lua"))()
-      </pre>
-    </div>
+    <div id="paypal-button-container"></div>
 
-    <!-- Botón compra -->
-    <button class="buy-btn" id="buyBtn">¡BUY BX-PREMIUM!</button>
-  </div>
-
-  <!-- Frame de pago -->
-  <div class="overlay" id="overlay">
-    <div class="frame">
-      <h2>METHOD TO PAY</h2>
-      <button class="pay-btn paypal">PAYPAL</button>
-      <button class="pay-btn robux">ROBUX</button>
-      <button class="close-btn" id="closeBtn">CLOSE</button>
+    <div id="key-link" style="display:none;">
+      <p>✅ Payment successful! Access your daily key here:</p>
+      <a href="https://dailykey.vercel.app/" target="_blank">Daily Key</a>
     </div>
   </div>
 
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
