@@ -1,21 +1,22 @@
-const buyBtn = document.getElementById("buyBtn");
-const overlay = document.getElementById("overlay");
-const closeBtn = document.getElementById("closeBtn");
-
-const discordLink = "https://discord.com/channels/1450199337207595152/1458218092663410698";
-
-buyBtn.onclick = () => {
-  overlay.style.display = "flex";
-};
-
-closeBtn.onclick = () => {
-  overlay.style.display = "none";
-};
-
-document.querySelector(".paypal").onclick = () => {
-  window.open(discordLink, "_blank");
-};
-
-document.querySelector(".robux").onclick = () => {
-  window.open(discordLink, "_blank");
-};
+paypal.Buttons({
+    createOrder: async function(data, actions) {
+        // Llama a tu backend para crear orden
+        const res = await fetch('/api/create-order');
+        const order = await res.json();
+        return order.id; // Devuelve el ID de la orden a PayPal
+    },
+    onApprove: async function(data, actions) {
+        // Captura el pago en tu backend
+        const res = await fetch('/api/capture-order', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ orderID: data.orderID })
+        });
+        const result = await res.json();
+        if(result.success) {
+            document.getElementById('key-link').style.display = 'block';
+        } else {
+            alert('Payment failed or incorrect amount.');
+        }
+    }
+}).render('#paypal-button-container');
