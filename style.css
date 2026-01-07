@@ -1,7 +1,8 @@
 body {
-  background: #0f0f0f;
-  color: #00ffea;
+  margin: 0;
   font-family: 'Courier New', monospace;
+  background-color: #0f0f0f;
+  color: #00ffea;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -10,18 +11,30 @@ body {
 
 .container {
   text-align: center;
-  background: rgba(0,0,0,0.7);
-  padding: 50px;
+  background: linear-gradient(145deg, #111, #222);
+  padding: 40px;
   border-radius: 15px;
   box-shadow: 0 0 20px #00ffea;
 }
 
-h1.title {
+.title {
   font-size: 2.5em;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+  text-shadow: 0 0 10px #00ffea;
 }
 
-p.desc {
+.desc {
+  margin-bottom: 20px;
   font-size: 1.2em;
-  margin-bottom: 30px;
+}
+
+#key-link a {
+  color: #0ff;
+  text-decoration: none;
+  font-weight: bold;
+  text-shadow: 0 0 5px #0ff;
+}
+
+#key-link a:hover {
+  text-shadow: 0 0 20px #00ffea;
 }
