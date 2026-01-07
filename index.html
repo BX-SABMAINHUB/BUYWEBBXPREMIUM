@@ -4,21 +4,24 @@
 <meta charset="UTF-8">
 <title>BX-Premium</title>
 <link rel="stylesheet" href="style.css">
-<script src=Afca3gBWdUQMaY4LTkgEZGmWfiDeJdoSdbdsJmKi8YyIYCLPdTarEkWKrK8ssbSTvnSpWmciEP8-yKiS></script>
+<!-- PayPal SDK con tu Client ID correcto -->
+<script src="https://www.paypal.com/sdk/js?client-id=Afca3gBWdUQMaY4LTkgEZGmWfiDeJdoSdbdsJmKi8YyIYCLPdTarEkWKrK8ssbSTvnSpWmciEP8-yKiS&currency=EUR"></script>
 </head>
 <body>
   <div class="container">
     <h1 class="title">BX-PREMIUM SCRIPT</h1>
     <p class="desc">Get your daily key after paying 5€</p>
 
+    <!-- Botón de PayPal -->
     <div id="paypal-button-container"></div>
 
-    <div id="key-link" style="display:none;">
+    <!-- Link de la key diaria, oculto al inicio -->
+    <div id="key-link" style="display:none; margin-top:20px;">
       <p>✅ Payment successful! Access your daily key here:</p>
       <a href="https://dailykey.vercel.app/" target="_blank">Daily Key</a>
     </div>
   </div>
 
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
