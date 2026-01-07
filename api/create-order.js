@@ -1,6 +1,10 @@
 export const config = { runtime: "edge" };
 
 export default async function handler(req) {
+  const body = await req.json();
+  const currency = body.currency || "EUR"; // default EUR
+  const value = "5.00"; // siempre 5€, 5$, 5£ etc.
+
   const auth = btoa("Afca3gBWdUQMaY4LTkgEZGmWfiDeJdoSdbdsJmKi8YyIYCLPdTarEkWKrK8ssbSTvnSpWmciEP8-yKiS:EC-NA2cbXfbDsitpyIeBZ9kGmq0FwWfkXCEW8YafxlVhfZQhIoFp2HM9qUhIZFIOF0PpVi_XoSbYKbcC");
 
   const order = await fetch('https://api-m.sandbox.paypal.com/v2/checkout/orders', {
@@ -12,7 +16,7 @@ export default async function handler(req) {
     body: JSON.stringify({
       intent: "CAPTURE",
       purchase_units: [{
-        amount: { currency_code: "EUR", value: "5.00" }
+        amount: { currency_code: currency, value: value }
       }]
     })
   });
