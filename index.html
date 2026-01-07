@@ -4,40 +4,36 @@
 <meta charset="UTF-8">
 <title>BX-PREMIUM</title>
 <link rel="stylesheet" href="style.css">
+
+<!-- PayPal SDK SOLO UNA VEZ -->
+<script src="https://www.paypal.com/sdk/js?client-id=Afca3gBWdUQMaY4LTkgEZGmWfiDeJdoSdbdsJmKi8YyIYCLPdTarEkWKrK8ssbSTvnSpWmciEP8-yKiS&currency=EUR&disable-funding=card"></script>
 </head>
 
 <body>
 <div class="container">
   <h1 class="title">BX-PREMIUM SCRIPT</h1>
-  <p class="desc">Choose your currency and complete the payment</p>
+  <p class="desc">Choose your payment method</p>
 
-  <!-- Currency selector -->
-  <select id="currency">
-    <option value="EUR">€ Euro</option>
-    <option value="USD">$ US Dollar</option>
-  </select>
+  <h3>Pay in Euro (€)</h3>
+  <div id="paypal-eur"></div>
 
-  <!-- PayPal -->
-  <div id="paypal-button-container"></div>
+  <h3>Pay in Dollar ($)</h3>
+  <div id="paypal-usd"></div>
 
-  <!-- Instructions button -->
   <button id="instructions-btn">Instructions</button>
 
-  <!-- Instructions modal -->
   <div id="instructions-modal">
     <div class="modal-content">
-      <h2>How does BX-Premium work?</h2>
+      <h2>Instructions</h2>
       <p>
-        After completing the payment, you will receive access to the BX-Premium system.<br><br>
-        The premium key unlocks exclusive features of the script.<br><br>
-        Keys are updated regularly for security reasons.<br><br>
-        If you have any issues, contact support via Discord.
+        After payment you will get access to BX-Premium.<br><br>
+        The key unlocks premium script features.<br><br>
+        If you need help, contact support on Discord.
       </p>
       <button onclick="closeInstructions()">Close</button>
     </div>
   </div>
 
-  <!-- Final access -->
   <div id="key-link" style="display:none;">
     <a href="https://dailykey.vercel.app/" target="_blank">Access Daily Key</a>
   </div>
