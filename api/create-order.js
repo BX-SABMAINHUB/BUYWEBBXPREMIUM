@@ -1,18 +1,19 @@
-import fetch from "node-fetch";
+export const config = { runtime: "edge" };
 
-export default async function handler(req, res) {
-  if(req.method !== "POST") return res.status(405).json({error: "Only POST allowed"});
+export default async function handler(req) {
+  if (req.method !== "POST") return new Response("Only POST allowed", { status: 405 });
 
   try {
-    const { currency } = req.body || { currency: "EUR" };
-    const value = "5.00"; // monto fijo
+    const body = await req.json();
+    const currency = body.currency || "EUR"; // moneda seleccionada
+    const value = "5.00"; // precio fijo
 
     const clientId = "Afca3gBWdUQMaY4LTkgEZGmWfiDeJdoSdbdsJmKi8YyIYCLPdTarEkWKrK8ssbSTvnSpWmciEP8-yKiS";
     const secret = "EC-NA2cbXfbDsitpyIeBZ9kGmq0FwWfkXCEW8YafxlVhfZQhIoFp2HM9qUhIZFIOF0PpVi_XoSbYKbcC";
 
-    const auth = Buffer.from(`${clientId}:${secret}`).toString("base64");
+    const auth = btoa(`${clientId}:${secret}`);
 
-    const orderRes = await fetch("https://api-m.sandbox.paypal.com/v2/checkout/orders", {
+    const order = await fetch("https://api-m.sandbox.paypal.com/v2/checkout/orders", {
       method: "POST",
       headers: {
         "Authorization": `Basic ${auth}`,
@@ -20,18 +21,15 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify({
         intent: "CAPTURE",
-        purchase_units: [{
-          amount: { currency_code: currency, value: value }
-        }]
+        purchase_units: [{ amount: { currency_code: currency, value: value } }]
       })
     });
 
-    const data = await orderRes.json();
-    if(data.name) return res.status(400).json({ error: data });
+    const data = await order.json();
+    if (data.name) return new Response(JSON.stringify({ error: data }), { status: 400 });
 
-    res.status(200).json({ id: data.id });
-  } catch(err) {
-    console.log("Create order error:", err);
-    res.status(500).json({ error: err.message });
+    return new Response(JSON.stringify({ id: data.id }), { status: 200 });
+  } catch (err) {
+    return new Response(JSON.stringify({ error: err.message }), { status: 500 });
   }
 }
