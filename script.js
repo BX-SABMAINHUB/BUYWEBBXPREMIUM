@@ -2,13 +2,17 @@ const currencySelect = document.getElementById("currency");
 
 paypal.Buttons({
   createOrder: async function() {
-    const currency = currencySelect.value; // toma la moneda seleccionada
+    const currency = currencySelect.value;
     const res = await fetch('/api/create-order', {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ currency: currency })
     });
     const data = await res.json();
+    if(data.error) {
+      alert("Error creating order: " + JSON.stringify(data.error));
+      throw new Error("PayPal order creation failed");
+    }
     return data.id;
   },
   onApprove: async function(data) {
