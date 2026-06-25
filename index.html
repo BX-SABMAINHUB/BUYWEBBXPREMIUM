@@ -1,44 +1,238 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>BX-PREMIUM</title>
-<link rel="stylesheet" href="style.css">
-
-<!-- PayPal SDK SOLO UNA VEZ -->
-<script src="https://www.paypal.com/sdk/js?client-id=Afca3gBWdUQMaY4LTkgEZGmWfiDeJdoSdbdsJmKi8YyIYCLPdTarEkWKrK8ssbSTvnSpWmciEP8-yKiS&currency=EUR&disable-funding=card"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Donar con PayPal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(145deg, #f6f9fc, #e9f0f5);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 480px;
+            width: 100%;
+            background: #fff;
+            border-radius: 36px;
+            padding: 36px 28px 28px;
+            box-shadow: 0 20px 60px rgba(0, 20, 40, 0.12);
+        }
+        header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+        header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #0a2a44;
+        }
+        header p {
+            color: #5b6f82;
+            font-size: 15px;
+            margin-top: 4px;
+        }
+        .box {
+            background: #fafcff;
+            border-radius: 24px;
+            padding: 24px 20px 20px;
+            border: 1px solid #e9edf2;
+        }
+        .currency-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .currency-btn {
+            flex: 1;
+            padding: 12px 0;
+            border: 2px solid #dce2ea;
+            border-radius: 60px;
+            background: transparent;
+            font-weight: 600;
+            color: #4a5b6e;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+        .currency-btn.activo {
+            border-color: #0070ba;
+            background: #0070ba;
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(0, 112, 186, 0.25);
+        }
+        .currency-btn.activo:hover {
+            background: #005c9e;
+        }
+        .amount-input {
+            margin-bottom: 24px;
+        }
+        .amount-input label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #1f3349;
+            margin-bottom: 6px;
+        }
+        .amount-input input {
+            width: 100%;
+            padding: 14px 18px;
+            font-size: 20px;
+            font-weight: 500;
+            border: 2px solid #dce2ea;
+            border-radius: 60px;
+            text-align: center;
+            outline: none;
+            font-family: inherit;
+            transition: border 0.2s;
+        }
+        .amount-input input:focus {
+            border-color: #0070ba;
+            box-shadow: 0 0 0 4px rgba(0, 112, 186, 0.12);
+        }
+        #paypal-button-container {
+            margin-top: 8px;
+            min-height: 110px;
+        }
+        .footer {
+            margin-top: 24px;
+            text-align: center;
+            font-size: 14px;
+            color: #7b8fa3;
+            border-top: 1px solid #eef3f8;
+            padding-top: 20px;
+        }
+        .footer span {
+            margin-right: 6px;
+        }
+        @media (max-width: 480px) {
+            .container { padding: 24px 16px; }
+            header h1 { font-size: 24px; }
+            .currency-btn { font-size: 14px; }
+        }
+    </style>
 </head>
-
 <body>
-<div class="container">
-  <h1 class="title">BX-PREMIUM SCRIPT</h1>
-  <p class="desc">Choose your payment method</p>
 
-  <h3>Pay in Euro (€)</h3>
-  <div id="paypal-eur"></div>
+    <div class="container">
+        <header>
+            <h1>💙 Apóyanos</h1>
+            <p>Elige moneda y cantidad, luego haz clic en el botón de PayPal.</p>
+        </header>
 
-  <h3>Pay in Dollar ($)</h3>
-  <div id="paypal-usd"></div>
+        <div class="box">
+            <!-- Selector de moneda -->
+            <div class="currency-selector">
+                <button class="currency-btn activo" data-currency="EUR">🇪🇺 EUR</button>
+                <button class="currency-btn" data-currency="USD">🇺🇸 USD</button>
+                <button class="currency-btn" data-currency="MXN">🇲🇽 MXN</button>
+            </div>
 
-  <button id="instructions-btn">Instructions</button>
+            <!-- Campo de monto -->
+            <div class="amount-input">
+                <label for="amount">Cantidad a donar</label>
+                <input type="number" id="amount" placeholder="0.00" min="0.01" step="0.01" value="10.00" />
+            </div>
 
-  <div id="instructions-modal">
-    <div class="modal-content">
-      <h2>Instructions</h2>
-      <p>
-        After payment you will get access to BX-Premium.<br><br>
-        The key unlocks premium script features.<br><br>
-        If you need help, contact support on Discord.
-      </p>
-      <button onclick="closeInstructions()">Close</button>
+            <!-- Contenedor del botón de PayPal -->
+            <div id="paypal-button-container"></div>
+        </div>
+
+        <div class="footer">
+            <span>🔒</span> Pagos seguros · PayPal
+        </div>
     </div>
-  </div>
 
-  <div id="key-link" style="display:none;">
-    <a href="https://dailykey.vercel.app/" target="_blank">Access Daily Key</a>
-  </div>
-</div>
+    <!-- ========================================================== -->
+    <!-- SDK DE PAYPAL (YA CON TU CLIENT-ID PUESTO)                  -->
+    <!-- ========================================================== -->
+    <script src="https://www.paypal.com/sdk/js?client-id=BAAKWAcerKo-Sa0MtDQKoUrWQzdaLWnWokdOf0wfgAD1jFl_empEwpQuMqz7DFOXQCMolgGgQ2wgHsbQ-I&currency=EUR&intent=donation">
+    </script>
 
-<script src="script.js"></script>
+    <script>
+        // ---- Elementos ----
+        const currencyButtons = document.querySelectorAll('.currency-btn');
+        const amountInput = document.getElementById('amount');
+        const container = document.getElementById('paypal-button-container');
+
+        let selectedCurrency = 'EUR';
+
+        // ---- Cambiar moneda ----
+        currencyButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                currencyButtons.forEach(b => b.classList.remove('activo'));
+                this.classList.add('activo');
+                selectedCurrency = this.dataset.currency;
+                renderPayPalButton();
+            });
+        });
+
+        // ---- Renderizar botón ----
+        function renderPayPalButton() {
+            container.innerHTML = '';
+
+            let amount = parseFloat(amountInput.value);
+            if (isNaN(amount) || amount <= 0) {
+                container.innerHTML =
+                '<p style="color:#b91c1c; font-weight:500; text-align:center;">Ingresa un monto válido</p>';
+                return;
+            }
+
+            paypal.Buttons({
+                style: {
+                    layout: 'vertical',
+                    color: 'blue',
+                    shape: 'pill',
+                    label: 'donate',
+                },
+                createOrder: function(data, actions) {
+                    return actions.order.create({
+                        intent: 'CAPTURE',
+                        purchase_units: [{
+                            amount: {
+                                currency_code: selectedCurrency,
+                                value: amount.toFixed(2)
+                            },
+                            description: 'Donación voluntaria'
+                        }],
+                        application_context: {
+                            shipping_preference: 'NO_SHIPPING'
+                        }
+                    });
+                },
+                onApprove: function(data, actions) {
+                    return actions.order.capture().then(function(details) {
+                        alert('¡Donación completada! Gracias ' + details.payer.name.given_name);
+                        // window.location.href = 'gracias.html'; // Descomenta si tienes una página de gracias
+                    });
+                },
+                onError: function(err) {
+                    console.error(err);
+                    alert('Ocurrió un error. Intenta de nuevo.');
+                }
+            }).render(container);
+        }
+
+        // ---- Evento al cambiar el monto ----
+        amountInput.addEventListener('input', function() {
+            renderPayPalButton();
+        });
+
+        // ---- Cargar al inicio ----
+        renderPayPalButton();
+    </script>
+
 </body>
 </html>
